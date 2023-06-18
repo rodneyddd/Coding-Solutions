@@ -1,0 +1,63 @@
+Description: Example
+transactions = ['notebook', 'notebook', 'mouse', 'keyboard', 'mouse']
+There are two items with 2 transactions each: 'notebook' and 'mouse'. In alphabetical order, they are
+'mouse', 'notebook'.
+There is one item with 1 transaction: 'keyboard'.
+The return array, sorted as required, is ['mouse 2', 'notebook 2', 'keyboard 1'].
+
+
+
+vector<string> groupTransactions(vector<string> transactions)
+{
+
+   unordered_map<string,int>freq;
+   for(int i = 0; i < transactions.size(); i++) //saving word frequencies
+   {
+     if(freq.count(transactions[i]))
+       freq[transactions[i]]++;
+     else
+       freq[transactions[i]] = 1;
+   }
+
+   std::sort(transactions.begin(), transactions.end()); //sorting the vector alphabetically
+
+
+   /*for(int i = 0; i < transactions.size(); i++) // testing to see if sorted properly
+   {
+     cout << transactions[i] << " "; 
+   }*/
+
+
+   vector<string>str;
+   unordered_map<string,int>strhm;
+   for(int i = 0; i < transactions.size(); i++ ) //making a vector without duplicates, successfully does btw
+   {
+     if(strhm.count(transactions[i]))
+      continue;
+     else
+     {
+        str.push_back(transactions[i]);
+        strhm[transactions[i]] = i;
+     }
+   }
+
+   string m = " "; //space string 
+   for(int i = 0; i < str.size(); i++) //adding numbers to the array, based on previous strings
+   {
+      if(freq.count(str[i]))
+       {
+       int num = freq[str[i]];
+       //cout << freq[str[i]] << endl;
+       str[i] += m;
+       str[i] += std::to_string(num);
+       }
+    }
+
+
+   return str;
+
+
+
+
+ //return {};
+}
